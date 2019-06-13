@@ -32,7 +32,6 @@ MODULE_DEVICE_TABLE(usb, usbtemp_id_table);
 
 
 
-
 /* Structure to hold all of our device specific stuff */
 struct usbtemp {
 	struct usb_device	*udev;	/* the usb device for this device */
@@ -95,7 +94,6 @@ static SENSOR_DEVICE_ATTR(status, 0444, ds1820tousb_status_show, NULL, 0);
 
 
 
-
 static int get_temp_value(struct usbtemp *temp_dev)
 {
 	int rc = 0;
@@ -133,8 +131,6 @@ static int get_temp_value(struct usbtemp *temp_dev)
 
 
 
-
-
 static ssize_t ds1820tousb_temperature1_show(struct device *dev,
 				       struct device_attribute *attr,
 				       char *buf)
@@ -168,8 +164,6 @@ static ssize_t ds1820tousb_temperature2_show(struct device *dev,
 }
 
 static SENSOR_DEVICE_ATTR(temp2_input, 0444, ds1820tousb_temperature2_show, NULL, 0);
-
-
 
 
 
@@ -214,8 +208,6 @@ static int usb_rescan(struct usbtemp *temp_dev)
 
 
 
-
-
 static ssize_t ds1820tousb_rescan_store(struct device *dev,
 					struct device_attribute *attr,
 					const char *buf, size_t count)
@@ -238,9 +230,6 @@ static ssize_t ds1820tousb_rescan_store(struct device *dev,
 }
 
 static SENSOR_DEVICE_ATTR(rescan, 0200, NULL, ds1820tousb_rescan_store, 0);
-
-
-
 
 
 
@@ -302,8 +291,6 @@ static SENSOR_DEVICE_ATTR(reset, 0200, NULL, ds1820tousb_reset_store, 0);
 
 
 
-
-
 static struct attribute *ds1820tousb_attrs[] = {
 	&sensor_dev_attr_temp1_input.dev_attr.attr,
 	&sensor_dev_attr_temp2_input.dev_attr.attr,
@@ -314,8 +301,6 @@ static struct attribute *ds1820tousb_attrs[] = {
 };
 
 ATTRIBUTE_GROUPS(ds1820tousb);
-
-
 
 
 
@@ -362,7 +347,6 @@ static int usbtemp_probe(struct usb_interface *interface,
 	hwmon_dev = hwmon_device_register_with_groups(&interface->dev,
 							dev->udev->product,
 							dev, ds1820tousb_groups);
-
 	return 0;
 error:
 	usb_set_intfdata(interface, NULL);
@@ -370,6 +354,7 @@ error:
 	kfree(dev);
 	return retval;
 }
+
 
 static void usbtemp_disconnect(struct usb_interface *interface)
 {
@@ -399,8 +384,6 @@ static struct usb_driver usbtemp_driver = {
 
 
 
-
-
 static int __init usbtemp_init(void)
 {
 	pr_info("usbtemp!\n");
@@ -416,8 +399,6 @@ module_init(usbtemp_init);
 module_exit(usbtemp_exit);
 
 
-
 MODULE_AUTHOR("ltz");
-
 MODULE_DESCRIPTION("ds1820tousb driver");
 MODULE_LICENSE("GPL");
